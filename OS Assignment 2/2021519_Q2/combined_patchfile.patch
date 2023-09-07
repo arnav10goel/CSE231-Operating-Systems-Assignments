@@ -1,0 +1,23 @@
+diff -u stock_kernel/linux-5.19.8/arch/x86/entry/syscalls/syscall_64.tbl edited_kernel/linux-5.19.8/arch/x86/entry/syscalls/syscall_64.tbl
+--- stock_kernel/linux-5.19.8/arch/x86/entry/syscalls/syscall_64.tbl	2022-11-13 02:22:44.079957260 +0530
++++ edited_kernel/linux-5.19.8/arch/x86/entry/syscalls/syscall_64.tbl	2022-11-14 04:21:32.883358031 +0530
+@@ -372,6 +372,7 @@
+ 448	common	process_mrelease	sys_process_mrelease
+ 449	common	futex_waitv		sys_futex_waitv
+ 450	common	set_mempolicy_home_node	sys_set_mempolicy_home_node
++451	common	kernel_2d_memcpy	sys_kernel_2d_memcpy
+ 
+ #
+ # Due to a historical design error, certain syscalls are numbered differently
+
+diff -u stock_kernel/linux-5.19.8/Makefile edited_kernel/linux-5.19.8/Makefile
+--- stock_kernel/linux-5.19.8/Makefile	2022-09-08 14:54:08.000000000 +0530
++++ edited_kernel/linux-5.19.8/Makefile	2022-11-24 06:06:05.489977591 +0530
+@@ -1100,7 +1100,7 @@
+ export MODULES_NSDEPS := $(extmod_prefix)modules.nsdeps
+ 
+ ifeq ($(KBUILD_EXTMOD),)
+-core-y			+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/
++core-y			+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ kernel_2d_memcpy/
+ core-$(CONFIG_BLOCK)	+= block/
+ core-$(CONFIG_IO_URING)	+= io_uring/
